@@ -29,6 +29,8 @@ class Body:
         G = 6.67430e-11
         r = other_body.position - self.position
         r_norm = np.linalg.norm(r)
+        if r_norm < 1: #prevents singularities
+            r_norm = 1
         force = G * self.mass * other_body.mass / r_norm**3 * r
         return force
 
