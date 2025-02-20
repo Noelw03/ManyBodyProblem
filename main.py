@@ -45,10 +45,10 @@ def main():
                 body.update_acceleration(force)
                 body.update_velocity(world.dt)
                 body.update_position(world.dt)
-                world.simuation_data["body_index"].append(world.bodies.index(body))
-                world.simuation_data["position_x"].append(body.position[0])
-                world.simuation_data["position_y"].append(body.position[1])
-                world.simuation_data["position_z"].append(body.position[2])
+            world.record_simulation_step(i)
+
+    world.save_to_json("simulation_data.json")
+    print("Simulation data saved to simulation_data.json")
             
             
 
