@@ -32,6 +32,15 @@ class Body:
         force = G * self.mass * other_body.mass / r_norm**3 * r
         return force
 
-
+    def __str__(self):
+        """Returns the relevant information about the body"""
+        return(
+            f"mass: {self.mass}\n"
+            f"position: {self.position}\n"
+            f"velocity: {self.velocity}\n"
+            f"acceleration: {self.acceleration}\n"
+        )
+    
+    
 
     
