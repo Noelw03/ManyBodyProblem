@@ -23,15 +23,12 @@ class Body:
         Updates the acceleration of the body.
         
         Parameters:
-        force (np.array): Force acting on the body
-        
-        Returns:
-        np.array: Updated acceleration
+        new_acceleration (np.array): New acceleration
         """
         self.acceleration = force / self.mass
         return self.acceleration
     
-    def update_velocity(self, dt):
+    def update_velocity(self, dt, force):
         """
         Updates the velocity of the body.
         
@@ -41,7 +38,8 @@ class Body:
         Returns:
         np.array: Updated velocity
         """
-        self.velocity += self.acceleration * dt
+        new_acceleration = self.update_acceleration(force)
+        self.velocity += 0.5 * (self.acceleration + new_acceleration) * dt
         return self.velocity
 
     def update_position(self, dt):
@@ -54,10 +52,10 @@ class Body:
         Returns:
         np.array: Updated position
         """
-        self.position += self.velocity * dt
+        self.position += self.velocity * dt + 0.5 * self.acceleration * dt**2
         return self.position
     
-    def calculate_force(self, other_body):
+    def calculate_acceleration(self, other):
         """
         Calculates the gravitational force between two bodies.
         
@@ -67,12 +65,25 @@ class Body:
         Returns:
         np.array: Gravitational force vector
         """
-        r = other_body.position - self.position
+        r = other.position - self.position
         r_norm = np.linalg.norm(r)
         if r_norm < 1:  # Prevents singularities
             r_norm = 1
-        force = (self.G * self.mass * other_body.mass) / r_norm**3 * r
-        return force
+        force = (self.G * self.mass * other.mass * r) / r_norm**3
+        new_acceleration = force / self.mass
+        return new_acceleration
+    
+    def update_acceleration(self, other):
+        """
+        Updates the acceleration of the body.
+        
+        Parameters:
+        force (np.array): Force acting on the body
+        
+        Returns:
+        np.array: Updated acceleration
+        """
+        self.acceleration = self.calculate_acceleration(other)
 
     def __str__(self):
         """
