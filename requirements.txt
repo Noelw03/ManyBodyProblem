@@ -1,0 +1,13 @@
+numpy
+matplotlib
+wheel
+jupyter
+pandas
+notebook
+odfpy
+ipywidgets
+openpyxl
+xlrd
+pytest
+time
+math
