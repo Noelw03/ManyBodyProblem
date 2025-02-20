@@ -5,9 +5,9 @@ class Body:
     def __init__(self, mass, position, velocity, acceleration):
         """Initializes the Body class with mass, position, velocity, and acceleration"""
         self.mass = mass
-        self.position = position
-        self.velocity = velocity
-        self.acceleration = acceleration
+        self.position = np.array(position)
+        self.velocity = np.array(velocity)
+        self.acceleration = np.array(acceleration)
 
     def update_acceleration(self, force):
         """Updates the acceleration of the body"""
@@ -41,6 +41,6 @@ class Body:
             f"acceleration: {self.acceleration}\n"
         )
     
-    
+
 
     
