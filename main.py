@@ -18,9 +18,9 @@ def main():
     random_or_not = input("Would you like to use predefined intervals (type 1) for the values or define them yourself (type 2): ")
     if random_or_not == "1":
         for i in range(body_count):
-            mass1 = np.random.uniform(1e11, 1e12)
+            mass1 = np.random.uniform(1e13, 1e14)
             position1 = np.array([np.random.uniform(-world.size/2, world.size/2), np.random.uniform(-world.size/2, world.size/2), np.random.uniform(-world.size/2, world.size/2)])
-            velocity1 = np.array(np.array([np.random.uniform(-2, 2), np.random.uniform(-2, 2), np.random.uniform(-2, 2)]))
+            velocity1 = np.array(np.array([np.random.uniform(-5, 5), np.random.uniform(-5, 5), np.random.uniform(-5, 5)]))
             acceleration1 = np.array([np.random.uniform(-2, 2), np.random.uniform(-2, 2), np.random.uniform(-2, 2)])
             world.bodies.append(Body(mass=mass1, position=position1, velocity=velocity1, acceleration=acceleration1))
 

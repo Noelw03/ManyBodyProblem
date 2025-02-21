@@ -2,6 +2,7 @@ import numpy as np
 
 class Body:
     G = 6.67430e-11  # Gravitational constant
+    epsilon = 15 #softening factor
 
     def __init__(self, mass, position, velocity, acceleration):
         """
@@ -29,9 +30,7 @@ class Body:
         np.array: Updated acceleration
         """
         r = other.position - self.position
-        r_norm = np.linalg.norm(r)
-        if r_norm < 1:  # Prevents singularities
-            r_norm = 1
+        r_norm = np.linalg.norm(r) + self.epsilon
         force = (self.G * self.mass * other.mass * r) / r_norm**3
         self.acceleration = force / self.mass
         return self.acceleration
