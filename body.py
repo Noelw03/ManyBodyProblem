@@ -2,7 +2,7 @@ import numpy as np
 
 class Body:
     G = 6.67430e-11  # Gravitational constant
-    epsilon = 15 #softening factor
+    epsilon = 70000 #softening factor
 
     def __init__(self, mass, position, velocity, acceleration):
         """
