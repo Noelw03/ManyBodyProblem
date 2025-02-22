@@ -16,6 +16,37 @@ class World:
 
     def border(self, size):
         """Creates a border if the user decides to implement a position limit"""
+        for body in self.bodies:
+             
+            while body.position[0] > size:
+                body.velocity[0] = -body.velocity[0]
+                body.position[0] = size
+
+
+            while body.position[0] < -size:
+                body.velocity[0] = -body.velocity[0]
+                body.position[0] = -size
+
+
+            while body.position[1] > size:
+                body.velocity[1] = -body.velocity[1]
+                body.position[1] = size
+
+
+            while body.position[1] < -size:
+                body.velocity[1] = -body.velocity[1]
+                body.position[1] = -size
+
+
+            while body.position[2] > size:
+                body.velocity[2] = -body.velocity[2]
+                body.position[2] = size
+
+
+            while body.position[2] < -size:
+                body.velocity[2] = -body.velocity[2]
+                body.position[2] = -size
+
 
     def save_to_json(self, filename):
         """Saves the simulation data to a JSON file"""

@@ -25,6 +25,8 @@ def main():
             world.bodies.append(Body(mass=mass1, position=position1, velocity=velocity1, acceleration=acceleration1))
 
     for n in range(time_steps):  # Updates the simulation for every time step
+        if border_yes_or_no == "yes":
+            world.border(size = world.size)
         for i, body in enumerate(world.bodies):
             for j, other in enumerate(world.bodies):
                 if i != j:  # Prevents the body from interacting with itself
