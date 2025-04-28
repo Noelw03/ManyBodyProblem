@@ -4,7 +4,7 @@ class Body:
     G = 6.67430e-11  # Gravitational constant
     epsilon = 70000 #softening factor
 
-    def __init__(self, mass, position, velocity, acceleration):
+    def __init__(self, mass, position, velocity, acceleration, force):
         """
         Initializes the Body class with mass, position, velocity, and acceleration.
         
@@ -17,9 +17,11 @@ class Body:
         self.mass = mass
         self.position = np.array(position)
         self.velocity = np.array(velocity)
-        self.acceleration = np.array(acceleration)
+        self.acceleration = np.array(acceleration) # Initialize force to zero
+        self.force = np.array([0.0, 0.0, 0.0])
 
-    def update_acceleration(self, other):
+
+    def update_force(self, other):
         """
         Updates the acceleration of the body based on the gravitational force from another body.
         
@@ -31,9 +33,16 @@ class Body:
         """
         r = other.position - self.position
         r_norm = np.linalg.norm(r) + self.epsilon
-        force = (self.G * self.mass * other.mass * r) / r_norm**3
-        self.acceleration = force / self.mass
+        self.force += (self.G * self.mass * other.mass * r) / r_norm**3
         return self.acceleration
+    
+    def update_acceleration(self, other):
+        self.acceleration = self.force / self.mass
+        return self.acceleration
+    
+    def reset_force(self):
+        """Resets the force to zero."""
+        self.force = np.array([0.0, 0.0, 0.0])
     
     def update_velocity(self, dt, other):
         """

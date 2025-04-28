@@ -32,9 +32,9 @@ def main():
         for i in range(body_count):
             mass1 = 1e25
             position1 = np.array([np.random.uniform(-world.size/1.5, world.size/1.5), np.random.uniform(-world.size/1.5, world.size/1.5), np.random.uniform(-world.size/1.5, world.size/1.5)])
-            velocity1 = np.array(np.array([np.random.uniform(-2, 2), np.random.uniform(-2, 2), np.random.uniform(-2, 2)]))
-            acceleration1 = np.array([np.random.uniform(-2, 2), np.random.uniform(-2, 2), np.random.uniform(-2, 2)])
-            world.bodies.append(Body(mass=mass1, position=position1, velocity=velocity1, acceleration=acceleration1))
+            velocity1 = np.zeros(3)
+            acceleration1 = np.zeros(3)
+            world.bodies.append(Body(mass=mass1, position=position1, velocity=velocity1, acceleration=acceleration1, force=np.zeros(3)))
 
     if random_or_not == "2": # User-defined intervals
         min_mass_range = float(input("Enter the min. mass of the bodies "))
@@ -49,7 +49,7 @@ def main():
             position1 = np.array([np.random.uniform(-world.size/1.5, world.size/1.5), np.random.uniform(-world.size/1.5, world.size/1.5), np.random.uniform(-world.size/1.5, world.size/1.5)])
             velocity1 = np.array([np.random.uniform(min_velocity_range, max_velocity_range), np.random.uniform(min_velocity_range, max_velocity_range), np.random.uniform(min_velocity_range, max_velocity_range)])
             acceleration1 = np.array([np.random.uniform(min_acceleration_range, max_acceleration_range), np.random.uniform(-min_acceleration_range, max_acceleration_range), np.random.uniform(min_acceleration_range, max_acceleration_range)])
-            world.bodies.append(Body(mass=mass1, position=position1, velocity=velocity1, acceleration=acceleration1))
+            world.bodies.append(Body(mass=mass1, position=position1, velocity=velocity1, acceleration=acceleration1, force=np.zeros(3)))
 
     for n in range(time_steps):  # Updates the simulation for every time step
         if border_yes_or_no == "yes":
@@ -57,9 +57,11 @@ def main():
         for i, body in enumerate(world.bodies):
             for j, other in enumerate(world.bodies):
                 if i != j:  # Prevents the body from interacting with itself
-                    body.update_acceleration(other)
-                    body.update_velocity(world.dt, other)
+                    body.update_force(other)
+            body.update_acceleration(other)
+            body.update_velocity(world.dt, other)
             body.update_position(world.dt)
+            body.reset_force()
         world.record_simulation_step(n)
 
     world.save_to_json("simulation_data.json")
