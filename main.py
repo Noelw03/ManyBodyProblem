@@ -7,18 +7,22 @@ def main():
     """Main function that initializes the bodies and calculates the simulation data"""
 
     border_yes_or_no = input("Would you like to implement a border? (yes/no): ")
-    size_ = float(input("Enter the size of the world (press 'Enter' for the standard size of 10^6): "))
+    size_ = input("Enter the size of the world (press 'Enter' for the standard size of 10^6): ")
     if size_ == "":
         size_ = 1e6
     else:
         size_ = float(size_)
-    dt_ = float(input("Enter the time step (press 'Enter' for the recommended timestep of 0.01): "))
+    dt_ = input("Enter the time step (press 'Enter' for the recommended timestep of 0.1): ")
     if dt_ == "":
-        dt_ = 0.01
+        dt_ = 0.1
     else:
         dt_ = float(dt_)
     time_steps = int(input("Enter the number of time steps: "))
-    body_count = int(input("Enter the number of bodies (just press 'Enter' for the 3-body-problem): "))
+    body_count = input("Enter the number of bodies (just press 'Enter' for the 3-body-problem): ")
+    if body_count == "":
+        body_count = 3
+    else:
+        body_count = int(body_count)
 
     # Initialize the world
     world = World(size = size_, dt = dt_)
