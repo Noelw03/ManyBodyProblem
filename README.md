@@ -1,4 +1,4 @@
-# ThreeBodyProblem
+# ManyBodyProblem
 Little project in which I try to numerically visualize the three body problem with the velocity-verlet algorithm in Python in a object oriented way.
 
 To run the code, you have to install the librarys given in the "requirements.txt" file. 
