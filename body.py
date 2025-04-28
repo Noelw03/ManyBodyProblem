@@ -34,7 +34,7 @@ class Body:
         r = other.position - self.position
         r_norm = np.linalg.norm(r) + self.epsilon
         self.force += (self.G * self.mass * other.mass * r) / r_norm**3
-        return self.acceleration
+        return self.force
     
     def update_acceleration(self, other):
         self.acceleration = self.force / self.mass
